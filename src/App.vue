@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <h1>GitHub explorer</h1>
-    <div v-if="selectedId">
-      <div v-for="item in results" v-if="item.id === selectedId">
+
+    <div v-if="selected.id">
+      <div v-for="item in results" v-if="item.id === selected.id">
         <h2>Details</h2>
         <div>Score: {{ item.score }}</div>
         <div>Forks?: {{ item.fork ? 'true' : 'false' }}</div>
@@ -10,6 +11,7 @@
         <button type="button" name="button" @click="cancel">Hide</button>
       </div>
     </div>
+
     <div v-else>
       <div>
         <input type="text" v-model="searchText" @input="onChange" />
@@ -39,7 +41,7 @@ export default {
       searchBy: 'repositories',
       searchText: '',
       results: [],
-      selectedId: null,
+      selected: {},
     };
   },
   methods: {
@@ -65,10 +67,10 @@ export default {
       });
     },
     select(id) {
-      this.selectedId = id;
+      this.selected.id = id;
     },
     cancel() {
-      this.selectedId = null;
+      this.selected.id = null;
     },
   },
 };
